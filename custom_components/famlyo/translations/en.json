@@ -20,7 +20,8 @@
       "invalid_auth": "This API token is invalid, expired or was removed.",
       "premium_required": "API access requires Famlyo Premium for the household.",
       "cannot_connect": "Famlyo is not reachable right now.",
-      "unknown": "Unexpected error."
+      "unknown": "Unexpected error.",
+      "wrong_household": "This API token belongs to a different household."
     },
     "abort": {
       "already_configured": "This API token is already set up.",

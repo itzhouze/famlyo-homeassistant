@@ -38,8 +38,10 @@ class FamlyoConfigFlow(ConfigFlow, domain=DOMAIN):
             token = user_input[CONF_TOKEN].strip()
             me, errors = await self._validate(token)
             if me:
-                # Ein Eintrag je Token — derselbe Token zweimal waere doppelt gepollt.
-                await self.async_set_unique_id(me["token"]["id"] if me.get("token") else me["user"]["id"])
+                # Ein Eintrag je HAUSHALT, nicht je Token: die Entitaeten heissen
+                # nach dem Haushalt, zwei Tokens fuer denselben waeren doppelte
+                # IDs — und nach einem Token-Wechsel waeren die alten verwaist.
+                await self.async_set_unique_id(me["household"]["id"])
                 self._abort_if_unique_id_configured()
                 household = me["household"].get("name") or "Famlyo"
                 return self.async_create_entry(title=f"Famlyo · {household}", data={CONF_TOKEN: token})
@@ -53,8 +55,10 @@ class FamlyoConfigFlow(ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             token = user_input[CONF_TOKEN].strip()
             me, errors = await self._validate(token)
-            if me:
-                # Ein neuer Token hat eine neue ID — der Eintrag bleibt derselbe.
+            if me and me["household"]["id"] != self._get_reauth_entry().unique_id:
+                # Ein Token fuer einen ANDEREN Haushalt waere ein anderer Eintrag.
+                errors = {"base": "wrong_household"}
+            elif me:
                 return self.async_update_reload_and_abort(
                     self._get_reauth_entry(), data_updates={CONF_TOKEN: token}
                 )

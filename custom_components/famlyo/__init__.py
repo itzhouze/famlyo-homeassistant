@@ -83,6 +83,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: FamlyoConfigEntry) -> bo
     except FamlyoError as err:
         raise ConfigEntryNotReady(str(err)) from err
 
+    # Aeltere Eintraege (v0.1.0) trugen die Token-ID als Kennung. Jetzt ist es der
+    # Haushalt — still umstellen, damit niemand neu einrichten muss.
+    household_id = me["household"]["id"]
+    if entry.unique_id != household_id:
+        hass.config_entries.async_update_entry(entry, unique_id=household_id)
+
     coordinator = FamlyoCoordinator(hass, entry, api, me)
     await coordinator.async_config_entry_first_refresh()
     entry.runtime_data = coordinator
