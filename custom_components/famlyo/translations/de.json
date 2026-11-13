@@ -1,0 +1,64 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Famlyo verbinden",
+        "description": "Erstelle in der Famlyo-App unter Einstellungen → Meine Integrationen → API-Zugriff einen API-Token und füge ihn hier ein.",
+        "data": {
+          "token": "API-Token"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Neuen API-Token eingeben",
+        "description": "Der bisherige API-Token ist abgelaufen oder wurde entfernt. Erstelle in der Famlyo-App einen neuen.",
+        "data": {
+          "token": "API-Token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Dieser API-Token ist ungültig, abgelaufen oder wurde entfernt.",
+      "premium_required": "Der API-Zugriff braucht Famlyo Premium im Haushalt.",
+      "cannot_connect": "Famlyo ist gerade nicht erreichbar.",
+      "unknown": "Unerwarteter Fehler."
+    },
+    "abort": {
+      "already_configured": "Dieser API-Token ist schon eingerichtet.",
+      "reauth_successful": "Der neue API-Token ist gespeichert."
+    }
+  },
+  "entity": {
+    "todo": {
+      "shopping_list": {
+        "name": "Einkaufsliste"
+      }
+    },
+    "sensor": {
+      "open_items": {
+        "name": "Offene Artikel"
+      },
+      "shortage": {
+        "name": "Nicht vorrätig oder knapp"
+      },
+      "expiring": {
+        "name": "Läuft bald ab"
+      }
+    }
+  },
+  "services": {
+    "get_stock": {
+      "name": "Bestand abfragen",
+      "description": "Ohne Suchbegriff der ganze Bestand, mit Suchbegriff ein Produkt („Haben wir Milch?“).",
+      "fields": {
+        "query": {
+          "name": "Produkt",
+          "description": "Produktname, z. B. Milch."
+        },
+        "config_entry_id": {
+          "name": "Haushalt",
+          "description": "Nur nötig, wenn mehrere Famlyo-Einträge eingerichtet sind."
+        }
+      }
+    }
+  }
+}

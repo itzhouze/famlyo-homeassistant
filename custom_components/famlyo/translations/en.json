@@ -1,0 +1,64 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect Famlyo",
+        "description": "Create an API token in the Famlyo app under Settings → My integrations → API access and paste it here.",
+        "data": {
+          "token": "API-Token"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Enter a new API token",
+        "description": "The previous API token expired or was removed. Create a new one in the Famlyo app.",
+        "data": {
+          "token": "API-Token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "This API token is invalid, expired or was removed.",
+      "premium_required": "API access requires Famlyo Premium for the household.",
+      "cannot_connect": "Famlyo is not reachable right now.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This API token is already set up.",
+      "reauth_successful": "The new API token has been saved."
+    }
+  },
+  "entity": {
+    "todo": {
+      "shopping_list": {
+        "name": "Shopping list"
+      }
+    },
+    "sensor": {
+      "open_items": {
+        "name": "Open items"
+      },
+      "shortage": {
+        "name": "Out of stock or running low"
+      },
+      "expiring": {
+        "name": "Expiring soon"
+      }
+    }
+  },
+  "services": {
+    "get_stock": {
+      "name": "Get stock",
+      "description": "Without a query the whole stock, with a query a single product (\"Do we have milk?\").",
+      "fields": {
+        "query": {
+          "name": "Product",
+          "description": "Product name, e.g. milk."
+        },
+        "config_entry_id": {
+          "name": "Household",
+          "description": "Only needed with several Famlyo entries."
+        }
+      }
+    }
+  }
+}
